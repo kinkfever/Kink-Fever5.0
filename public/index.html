@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kink Fever | Lifestyle & Wellness Store</title>
+    <link rel="icon" type="image/png" href="favicon_64.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kf-black: #0a0a0f;
+            --kf-dark: #1a0a2e;
+            --kf-purple: #6b21a8;
+            --kf-pink: #ec4899;
+            --kf-hot-pink: #ff1493;
+            --kf-neon-pink: #ff6b9d;
+            --kf-neon-purple: #c084fc;
+            --kf-white: #faf0fa;
+            --kf-glow: rgba(236, 72, 153, 0.3);
+            --im-sage: #aabea0;
+            --im-rose: #d4a5a5;
+            --im-gold: #c9a96e;
+            --im-dark-gold: #8b7355;
+            --im-cream: #f5f0e8;
+            --im-sage-dark: #8ca082;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--kf-black);
+            color: var(--kf-white);
+            overflow-x: hidden;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(236, 72, 153, 0.2);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--kf-pink), var(--kf-neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--kf-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--kf-pink), var(--kf-neon-purple));
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--kf-neon-pink); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--kf-pink), var(--kf-purple));
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(236, 72, 153, 0.5);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--kf-white);
+            border: 2px solid rgba(236, 72, 153, 0.5);
+            padding: 10px 26px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: var(--kf-pink);
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--kf-neon-pink);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 40px 80px;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(107, 33, 168, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(192, 132, 252, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+.hero-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    /* Forces GPU hardware rendering to prevent static glitches */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--kf-pink);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.6;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--kf-white), var(--kf-neon-pink), var(--kf-neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(250, 240, 250, 0.8);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+        }
+        .stat { text-align: center; }
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--kf-neon-pink);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(250, 240, 250, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        section {
+            padding: 100px 40px;
+            position: relative;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--kf-white), var(--kf-neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: rgba(250, 240, 250, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .services {
+            background: linear-gradient(180deg, var(--kf-black) 0%, rgba(26, 10, 46, 0.5) 100%);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--kf-pink);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
+        }
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--kf-white);
+        }
+        .service-card p {
+            color: rgba(250, 240, 250, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* Store Catalog Section styling */
+        .store { background: var(--kf-black); }
+        .store-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        @media (max-width: 968px) {
+            .store-layout { grid-template-columns: 1fr; }
+        }
+        .catalog-download-box {
+            background: rgba(26, 10, 46, 0.4);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .catalog-download-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--kf-white);
+            margin: 1.5rem 0 0.5rem;
+        }
+        .catalog-download-box p {
+            color: rgba(250, 240, 250, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .catalog-btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(135deg, var(--kf-purple), var(--kf-pink));
+            color: var(--kf-white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .catalog-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--kf-pink);
+        }
+        .manual-order-container {
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid rgba(192, 132, 252, 0.15);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .manual-order-container h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--kf-neon-purple);
+            margin-bottom: 0.5rem;
+        }
+        .manual-order-container p {
+            color: rgba(250, 240, 250, 0.8);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .order-email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 600px) {
+            .form-group-row { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            color: var(--kf-white);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(250, 240, 250, 0.2);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            color: var(--kf-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--kf-pink);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+        }
+        .submit-order-btn {
+            background: transparent;
+            border: 2px solid var(--kf-pink);
+            color: var(--kf-white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+        .submit-order-btn:hover {
+            background: var(--kf-pink);
+            color: var(--kf-black);
+            box-shadow: 0 0 20px var(--kf-pink);
+            transform: translateY(-2px);
+        }
+
+        .indigo-manor {
+            background: linear-gradient(180deg, var(--kf-black) 0%, rgba(170, 190, 160, 0.1) 50%, var(--kf-black) 100%);
+        }
+        .indigo-title { text-align: center; margin-bottom: 50px;}
+        .indigo-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--im-gold);
+            margin-bottom: 10px;
+        }
+        .indigo-title p {
+            font-size: 1.1rem;
+            color: var(--im-sage);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .indigo-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .indigo-card {
+            background: rgba(245, 240, 232, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .indigo-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--im-gold);
+            box-shadow: 0 15px 35px rgba(201, 169, 110, 0.2);
+        }
+        .indigo-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .indigo-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--im-cream);
+            margin-bottom: 15px;
+        }
+        .indigo-card p {
+            color: rgba(245, 240, 232, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .about {
+            background: linear-gradient(180deg, rgba(26, 10, 46, 0.5) 0%, var(--kf-black) 100%);
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--kf-white);
+        }
+        .about-text p {
+            color: rgba(250, 240, 250, 0.8);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        footer {
+            background: #050508;
+            border-top: 1px solid rgba(236, 72, 153, 0.2);
+            padding: 60px 40px 30px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .footer-logo span { color: var(--kf-pink); }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .footer-links a {
+            color: rgba(250, 240, 250, 0.6);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--kf-neon-pink); }
+        .copyright {
+            font-size: 0.85rem;
+            color: rgba(250, 240, 250, 0.4);
+        }
+        .age-badge {
+            display: inline-block;
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            color: var(--kf-neon-pink);
+        }
+        .age-verification {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 15, 0.99);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .age-verification.hidden { display: none; }
+        .age-box {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(26, 10, 46, 0.3);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .age-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--kf-white);
+        }
+        .age-box p {
+            color: rgba(250, 240, 250, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .age-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .about-content { grid-template-columns: 1fr; }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--kf-white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-modal:hover { color: var(--kf-pink); }
+        .emoji-picker-container {
+            position: absolute;
+            bottom: 85px;
+            right: 20px;
+            background: var(--kf-dark);
+            border: 1px solid var(--kf-purple);
+            border-radius: 12px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 4500;
+        }
+        .emoji-item {
+            font-size: 1.3rem;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .emoji-item:hover { transform: scale(1.25); }
+        .chat-reaction-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            color: var(--kf-white);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chat-reaction-btn:hover {
+            background: rgba(236,72,153,0.1);
+            border-color: var(--kf-pink);
+        }
+        .secure-img-wrapper { position: relative; display: inline-block; }
+        .secure-img-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            z-index: 10;
+        }
+        .chat-contact-shortcut {
+            background: rgba(236, 72, 153, 0.15);
+            border: 1px dashed var(--kf-pink);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px;
+            display: none;
+        }
+        .chat-contact-shortcut p {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CORRECT FUNCTION ALIGNMENT AGE GATE VERIFICATION -->
+    <div class="age-verification" id="ageGate">
+        <div class="age-box" id="ageStep1">
+            <h2>Sensory Gateway</h2>
+            <p>This platform contains curated alternative lifestyle resources and high-end wellness selections intended exclusively for adults aged 18 and older.</p>
+            <div class="age-buttons">
+                <button class="btn-primary" onclick="handleAgeChoice(true)">I am 18 or Older</button>
+                <button class="btn-secondary" onclick="handleAgeChoice(false)">Exit Site</button>
+            </div>
+        </div>
+        
+        <div class="age-box" id="ageStep2" style="display: none; max-width: 450px; width: 90%;">
+            <h2>Create Secure Account</h2>
+            <p style="margin-bottom: 20px; font-size: 0.85rem; color: #a1a1aa;">To ensure community safety, all users must complete account registration before browsing products or participating in anonymous chat zones.</p>
+            <form id="mandatoryRegForm" style="display: grid; gap: 15px; text-align: left;">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Phone Number</label>
+                    <input type="tel" id="regPhone" placeholder="e.g., 082 123 4567" required>
+                </div>
+                <div class="form-group">
+                    <label>Secure Password</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Verify & Access Platform</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- STABLE NAVBAR STRUCTURE -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Kink Fever</span>
+            </a>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('hero')">Home</a></li>
+                <li><a onclick="scrollToSection('services')">Services</a></li>
+                <li><a onclick="scrollToSection('store')">E-Store</a></li>
+                <li><a onclick="scrollToSection('indigo-manor')">Indigo Manor</a></li>
+                <li><a onclick="openChatZone()">Community Hub</a></li>
+                <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-primary" onclick="openChatZone()">My Account</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO HEADER GRAPHIC -->
+    <header id="hero" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>Connect Beyond Fantasy</h1>
+            <p>Your premier destination for high-end lifestyle curation, interactive media platforms, sensory publishing, and professional design frameworks.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSection('store')">Browse Collections</button>
+                <button class="btn-secondary" onclick="scrollToSection('services')">Our Services</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BESPOKE CORPORATE SERVICES -->
+    <section id="services" class="services fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Bespoke Services</h2>
+                <p>Tailored structural design spaces curated specifically for the alternative lifestyle demographic.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🎉</span>
+                    <h3>Sensory Event Hosting</h3>
+                    <p>Exclusive planning matrices, execution guidelines, and safety infrastructure for high-end communal lifestyle gatherings.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">📸</span>
+                    <h3>Photography Studio</h3>
+                    <p>High-discretion visual branding, boudoir captures, and lifestyle portfolio design inside secure, safe aesthetic zones.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🎬</span>
+                    <h3>Filming Layouts</h3>
+                    <p>State-of-the-art alternative entertainment production environments prioritizing user data containment and complete identity privacy.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">📚</span>
+                    <h3>Alternative Publishing</h3>
+                    <p>Educational books, sensory magazines, and relationship configuration blueprints structured by leading community authorities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIRECT SHOPPABLE CATALOG WITH NETLIFY MAIL ROUTING -->
+    <section id="store" class="store fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lifestyle & Wellness Store</h2>
+                <p>Browse our exclusive collection via our digital catalog and place your order below for personalized, manual invoicing.</p>
+            </div>
+            
+            <div class="store-layout">
+                <div class="catalog-download-box">
+                    <h3>Digital Catalog</h3>
+                    <p>Explore our curated luxury collections, premium lifestyle products, and bespoke wellness items.</p>
+                    <a href="catalog.pdf" target="_blank" class="catalog-btn">View & Download PDF</a>
+                </div>
+
+                <div class="manual-order-container">
+                    <h3>Place Your Order</h3>
+                    <p>Specify the item names and quantities you wish to order from our catalog. Once submitted, we will process your request manually and email your formal invoice with secure banking details.</p>
+                    
+                    <form name="kink-fever-orders" method="POST" data-netlify="true" class="order-email-form">
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="client_name" required placeholder="Your name and surname">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="client_email" required placeholder="yourname@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>WhatsApp / Phone Number</label>
+                                <input type="tel" name="client_phone" required placeholder="e.g., +27 ...">
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Address</label>
+                                <input type="text" name="shipping_address" required placeholder="Street address, suburb, city, postal code">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Order Details (Item Names & Quantities)</label>
+                            <textarea name="order_items" rows="5" required placeholder="Example:&#10;1x Silk Blindfold (Midnight Black)"></textarea>
+                        </div>
+                        <button type="submit" class="submit-order-btn">Submit Order Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDIGO MANOR BOUTIQUE -->
+    <section id="indigo-manor" class="indigo-manor fade-in">
+        <div class="container">
+            <div class="indigo-title">
+                <h2>Indigo Manor</h2>
+                <p>A Sanctuary for Autonomous Self-Expression</p>
+            </div>
+            <div class="indigo-services">
+                <div class="indigo-card">
+                    <span class="icon">👥</span>
+                    <h3>Identity Guidance</h3>
+                    <p>Structured support networks and mentorship tracks engineered for individual gender affirmation journeys.</p>
+                </div>
+                <div class="indigo-card">
+                    <span class="icon">💄</span>
+                    <h3>Styling & Aesthetics</h3>
+                    <p>Experienced profile builders, makeup mapping setups, and wig parameters optimized for accurate expression goals.</p>
+                </div>
+                <div class="indigo-card">
+                    <span class="icon">🗣️</span>
+                    <h3>Poise & Vocal Realignment</h3>
+                    <p>Professional coaching matrices targeting voice optimization, physical alignment, and public presentation confidence indicators.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE PLATFORM ETHOS -->
+    <section id="about" class="about fade-in">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Ethos</h3>
+                    <p>Kink Fever bridges the intersection of comprehensive alternative lifestyle management and elite professional design execution models.</p>
+                    <p>We maintain an unyielding commitment to education frameworks, secure legal parameter compliance, verified consent tracking, and supreme user data protection fields across South Africa.</p>
+                </div>
+                <div class="about-image">
+                    <div style="width:100%; height:260px; background:linear-gradient(135deg, var(--kf-purple), var(--kf-pink)); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:4rem;">💎</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT REGISTRATION INFRASTRUCTURE -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Get In Touch</h2>
+                <p>Reach out securely for event inquiries, partnership bookings, or platform vacancies.</p>
+            </div>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form name="kink-fever-contact" method="POST" data-netlify="true" style="display: grid; gap: 20px;">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" placeholder="Your message..." style="height: 120px;" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-order-btn" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PARAMETERS -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">KINK<span>FEVER</span></div>
+            <ul class="footer-links">
+                <li><a onclick="scrollToSection('hero')">Home</a></li>
+                <li><a onclick="scrollToSection('services')">Services</a></li>
+                <li><a onclick="scrollToSection('store')">E-Store</a></li>
+                <li><a onclick="scrollToSection('indigo-manor')">Indigo Manor</a></li>
+            </ul>
+            <p class="copyright">&copy; 2026 Kink Fever Platform. All Rights Reserved. Private Network Domain Architecture.</p>
+            <div class="age-badge">18+ Certified Content Only</div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE THREE-ROOM COMMUNITY MODAL -->
+    <div class="modal" id="chatZoneModal">
+        <div class="modal-content" style="max-width: 900px; width: 95%; height: 85vh; display: flex; flex-direction: column; background: linear-gradient(135deg, var(--kf-black) 0%, var(--kf-dark) 100%); border: 1px solid var(--kf-purple); border-radius: 20px; overflow: hidden; position: relative;">
+            
+            <div style="padding: 20px; border-bottom: 1px solid rgba(107, 33, 168, 0.4); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2);">
+                <div>
+                    <h2 style="margin: 0; font-family: 'Playfair Display', serif; color: var(--kf-white); font-size: 1.5rem;">Community Hub</h2>
+                    <p style="margin: 5px 0 0 0; font-size: 0.85rem; color: var(--kf-neon-pink);">Connect and view upcoming parameters safely</p>
+                </div>
+                <button class="close-modal" onclick="closeChatZone()">&times;</button>
+            </div>
+
+            <!-- Nickname Set Screen -->
+            <div id="chatSetupScreen" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center;">
+                <div style="max-width: 380px; width: 100%;">
+                    <h3 style="color: var(--kf-white); margin-bottom: 15px;">Choose your Hub Alias</h3>
+                    <p style="font-size: 0.85rem; color: #a1a1aa; margin-bottom: 20px;">Select an alias identity to protect your privacy while using our active connection spaces.</p>
+                    <input type="text" id="chatNicknameInput" placeholder="e.g., Midnight_Mystic" style="width: 100%; margin-bottom: 15px; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--kf-purple); color: white; font-family: 'Montserrat', sans-serif;">
+                    <button class="btn-primary" onclick="submitChatNickname()" style="width: 100%;">Enter Hub Network</button>
+                </div>
+            </div>
+
+            <!-- Main Split Channel Interface -->
+            <div id="chatMainInterface" style="display: none; flex: 1; overflow: hidden;">
+                <!-- Sidebar Channel Controls -->
+                <div style="width: 260px; border-right: 1px solid rgba(107, 33, 168, 0.4); background: rgba(0,0,0,0.35); display: flex; flex-direction: column;">
+                    <div style="padding: 15px 15px 6px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #71717a; font-weight: 700;">Active Channels</div>
+                    
+                    <button id="roomBtn-meet" onclick="switchRoom('meet')" style="width: 100%; padding: 12px 15px; text-align: left; background: transparent; border: none; border-left: 4px solid transparent; color: #a1a1aa; cursor: pointer; font-family: 'Montserrat', sans-serif;">💬 Meet & Greet</button>
+                    <button id="roomBtn-events" onclick="switchRoom('events')" style="width: 100%; padding: 12px 15px; text-align: left; background: transparent; border: none; border-left: 4px solid transparent; color: #a1a1aa; cursor: pointer; font-family: 'Montserrat', sans-serif;">📢 Upcoming Events</button>
+                    <button id="roomBtn-vacancies" onclick="switchRoom('vacancies')" style="width: 100%; padding: 12px 15px; text-align: left; background: transparent; border: none; border-left: 4px solid transparent; color: #a1a1aa; cursor: pointer; font-family: 'Montserrat', sans-serif;">💼 Job Vacancies</button>
+                    
+                    <div style="padding: 15px; font-size: 0.8rem; color: var(--kf-neon-pink); border-top: 1px solid rgba(107, 33, 168, 0.2); margin-top: auto; background: rgba(0,0,0,0.2);">
+                        Active Alias:<br>
+                        <strong id="currentChatUser" style="color: white;"></strong>
+                    </div>
+                </div>
+
+                <!-- Messaging Terminal Layout -->
+                <div style="flex: 1; display: flex; flex-direction: column; background: rgba(10, 10, 15, 0.4); position: relative;">
+                    <div id="chatMessagesBox" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;"></div>
+
+                    <!-- Shortcut Redirect Components -->
+                    <div id="shortcutBanner" class="chat-contact-shortcut">
+                        <p id="shortcutText">Have questions or want to secure coordinates?</p>
+                        <button class="btn-primary" onclick="triggerShortcutRedirect()" style="padding: 6px 15px; font-size: 0.8rem;">Fill Out Application / Inquiry Form</button>
+                    </div>
+
+                    <div id="emojiPicker" class="emoji-picker-container" style="display: none;">
+                        <span class="emoji-item" onclick="insertEmoji('✨')">✨</span>
+                        <span class="emoji-item" onclick="insertEmoji('❤️')">❤️</span>
+                        <span class="emoji-item" onclick="insertEmoji('🔥')">🔥</span>
+                        <span class="emoji-item" onclick="insertEmoji('🌹')">🌹</span>
+                        <span class="emoji-item" onclick="insertEmoji('💋')">💋</span>
+                        <span class="emoji-item" onclick="insertEmoji('🤫')">🤫</span>
+                    </div>
+
+                    <form id="chatInputForm" style="padding: 15px; border-top: 1px solid rgba(107, 33, 168, 0.4); display: flex; gap: 10px; background: rgba(0,0,0,0.4);">
+                        <button type="button" id="chatPhotoTriggerBtn" onclick="document.getElementById('chatPhotoUpload').click()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(107,33,168,0.4); color: white; border-radius: 8px; width: 42px; height: 42px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">📷</button>
+                        <input type="file" id="chatPhotoUpload" accept="image/*" style="display: none;" onchange="handleChatPhotoUpload(this)">
+                        
+                        <input type="text" id="chatMessageField" placeholder="Type a message securely..." required style="flex: 1; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(107, 33, 168, 0.6); color: white; font-family: 'Montserrat', sans-serif;">
+                        
+                        <button type="button" id="emojiToggleBtn" onclick="toggleEmojiPicker()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(107,33,168,0.4); color: white; border-radius: 8px; width: 42px; height: 42px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">😊</button>
+                        
+                        <button type="submit" id="chatSendBtn" class="btn-primary" style="padding: 0 20px; border-radius: 8px; height: 42px;">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CRUCIAL HARD LINK TO EXTERNAL SCRIPT FILE -->
+    <script src="script.js"></script>
+</body>
+</html>
